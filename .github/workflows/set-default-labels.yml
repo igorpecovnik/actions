@@ -1,21 +1,17 @@
-name: set-default-labels
+name: Use labels defined in JSON only
 
 on:
-  workflow_call:
-    inputs:
-      target-repo:
-        description: The repo to run this action on. This is to prevent actions from running on forks unless intended.
-        required: true
-        type: string
-      should-delete-labels:
-        description: 'Delete labels that are not in the list'
-        default: false
-        required: false
-        type: boolean
+  push:
+    paths:
+      - ".github/*"
+  workflow_dispatch:
 
 jobs:
-  set-default-labels:
-    if: github.repository == inputs.target-repo
+  Label:
+    permissions:
+      pull-requests: write
+      contents: read
+    name: DefaultLabelsActions
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -23,4 +19,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          delete: ${{ inputs.should-delete-labels }}
+          delete: true
