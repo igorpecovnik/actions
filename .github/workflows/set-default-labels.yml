@@ -8,9 +8,10 @@ on:
 
 jobs:
   Label:
-    permissions:
-      pull-requests: write
-      contents: read
+    permissions: write-all
+    #permissions:
+    #  pull-requests: write
+    #  contents: read
     name: DefaultLabelsActions
     runs-on: ubuntu-latest
     steps:
