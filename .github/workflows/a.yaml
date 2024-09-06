@@ -1,0 +1,21 @@
+name: Automatic Pull Request Labeling
+run-name: 'Set labels - PR #${{ github.event.pull_request.number }} ("${{ github.event.pull_request.title }}")'
+#
+# Set labels for pull requests automatically based on size (modified via job 'label-size') and file categories (modified via .github/labeler)
+#
+
+on:
+  - pull_request_target
+
+jobs:
+  if_reviewed:
+    if: github.event.pull_request_review == submitted
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add default label
+        uses: tella-adam/add-labels@v1
+        with:
+          labels: |
+            Ready to merge
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }
