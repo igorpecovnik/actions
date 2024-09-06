@@ -9,7 +9,7 @@ on:
 
 jobs:
   if_reviewed:
-    if: github.event.pull_request_review == 'submitted'
+    if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
     steps:
       - name: Add default label
