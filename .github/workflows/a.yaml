@@ -5,13 +5,15 @@ run-name: 'Set labels - PR #${{ github.event.pull_request.number }} ("${{ github
 #
 
 on:
-  - pull_request_target
+  pull_request_review:
+    types: [submitted]
 
 jobs:
-  if_reviewed:
+  approved:
     if: github.event.review.state == 'approved'
     runs-on: ubuntu-latest
     steps:
+      - run: echo "This PR was approved"
       - name: Add default label
         uses: tella-adam/add-labels@v1
         with:
